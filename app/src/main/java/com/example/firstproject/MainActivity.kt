@@ -109,7 +109,6 @@ class MainActivity : AppCompatActivity() {
         connectivityManager.requestNetwork(networkRequest, networkCallback)
 
 
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -122,8 +121,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 val scannedText = result.contents
                 Toast.makeText(applicationContext, scannedText, Toast.LENGTH_SHORT).show()
-                val wifiInfo = parseWiFiInfoFromQRCode(scannedText) // Hàm parseWiFiInfoFromQRCode() cần được triển khai để trích xuất thông tin SSID và mật khẩu
-
+                val wifiInfo = parseWiFiInfoFromQRCode(scannedText)
                 if (wifiInfo != null) {
                     connectToWifi(wifiInfo.ssid, wifiInfo.password)
                 } else {
@@ -137,13 +135,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun decodeQRCode(imageURI: Uri): WiFiInfo?{
         try {
-            // Đọc hình ảnh từ URI
             val inputStream = contentResolver.openInputStream(imageURI)
             val bitmap = BitmapFactory.decodeStream(inputStream)
             inputStream?.close()
 
             if (bitmap != null) {
-                // Tiếp tục xử lý như trước để giải mã mã QR code từ bitmap
                 val intArray = IntArray(bitmap.width * bitmap.height)
                 bitmap.getPixels(intArray, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)
                 val source = RGBLuminanceSource(bitmap.width, bitmap.height, intArray)
