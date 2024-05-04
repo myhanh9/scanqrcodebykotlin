@@ -31,7 +31,7 @@ import androidx.core.content.getSystemService
 
 class MainActivity : AppCompatActivity() {
     companion object {
-        private const val REQUEST_IMAGE_PICKER = 100
+        private const val REQUEST_IMAGE_PICKER = 101
     }
     private lateinit var imagePickerLauncher: ActivityResultLauncher<Intent>
     override fun onCreate(savedInstanceState: Bundle?) {
