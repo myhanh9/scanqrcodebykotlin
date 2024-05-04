@@ -114,28 +114,23 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == REQUEST_IMAGE_PICKER && resultCode == Activity.RESULT_OK && data != null) {
-//
-//
-//            //
-//        }
-//        else {
-            val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-            if (result != null) {
-                if (result.contents == null) {
-                    Toast.makeText(applicationContext, "Not found", Toast.LENGTH_SHORT).show()
+
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        if (result != null) {
+            if (result.contents == null) {
+                Toast.makeText(applicationContext, "Not found", Toast.LENGTH_SHORT).show()
+            } else {
+                val scannedText = result.contents
+                Toast.makeText(applicationContext, scannedText, Toast.LENGTH_SHORT).show()
+                val wifiInfo = parseWiFiInfoFromQRCode(scannedText) // Hàm parseWiFiInfoFromQRCode() cần được triển khai để trích xuất thông tin SSID và mật khẩu
+
+                if (wifiInfo != null) {
+                    connectToWifi(wifiInfo.ssid, wifiInfo.password)
                 } else {
-                    val scannedText = result.contents
-                    Toast.makeText(applicationContext, scannedText, Toast.LENGTH_SHORT).show()
-                    val wifiInfo = parseWiFiInfoFromQRCode(scannedText) // Hàm parseWiFiInfoFromQRCode() cần được triển khai để trích xuất thông tin SSID và mật khẩu
+                    Toast.makeText(this, "Invalid WiFi information in QR code", Toast.LENGTH_SHORT).show()
 
-                    if (wifiInfo != null) {
-                        connectToWifi(wifiInfo.ssid, wifiInfo.password)
-                    } else {
-                        Toast.makeText(this, "Invalid WiFi information in QR code", Toast.LENGTH_SHORT).show()
-
-                }
             }
+        }
 
        }
     }
