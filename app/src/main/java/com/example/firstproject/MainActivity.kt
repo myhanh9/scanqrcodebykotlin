@@ -188,8 +188,6 @@ class MainActivity : AppCompatActivity() {
         if (ssidMatch != null && passwordMatch != null) {
             val ssid = ssidMatch.groupValues[1]
             val password = passwordMatch.groupValues[1]
-            Toast.makeText(this, ssid, Toast.LENGTH_SHORT).show()
-            Toast.makeText(this, password, Toast.LENGTH_SHORT).show()
             return WiFiInfo(ssid, password)
         }
         return null
